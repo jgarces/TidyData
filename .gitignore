@@ -7,6 +7,10 @@
 # R data files from past sessions
 .Rdata
 
-# R Studio files
+# R Studio files and folders
 *.Rproj
 .Rproj.user
+
+# Data folders used in this project
+sourceData
+tidyData

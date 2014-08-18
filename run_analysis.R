@@ -19,10 +19,13 @@ if (!file.exists("tidyData")){
   dir.create("tidyData")
 }
 #Download raw data from source in local source directory
-if (!file.exists("./sourceData/UCI.HAR.Dataset.zip")){
+localCacheOfRawDataFile <- "./sourceData/UCI.HAR.Dataset.zip"
+if (!file.exists(localCacheOfRawDataFile)){
   fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-  download.file(fileurl, destfile="./sourceData/UCI.HAR.Dataset.zip")
+  download.file(fileUrl, localCacheOfRawDataFile)
 }
-#Extact the files from the compress archive.
-
-
+#Read raw data from downloaded file
+bodyAccXTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/Inertial Signals/body_acc_x_test.txt")
+open(bodyAccXTestConn)
+readLines(bodyAccXTestConn, n=1)
+close(bodyAccXTestConn)
