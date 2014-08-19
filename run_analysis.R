@@ -25,7 +25,17 @@ if (!file.exists(localCacheOfRawDataFile)){
   download.file(fileUrl, localCacheOfRawDataFile)
 }
 #Read raw data from downloaded file
-bodyAccXTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/Inertial Signals/body_acc_x_test.txt")
-open(bodyAccXTestConn)
-readLines(bodyAccXTestConn, n=1)
-close(bodyAccXTestConn)
+subjectTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/subject_test.txt")
+open(subjectTestConn)
+readLines(subjectTestConn, n=10)
+close(subjectTestConn)
+
+yTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/y_test.txt")
+open(yTestConn)
+readLines(yTestConn, n=10)
+close(yTestConn)
+
+xTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/X_test.txt")
+open(xTestConn)
+readLines(xTestConn, n=10)
+close(xTestConn)
