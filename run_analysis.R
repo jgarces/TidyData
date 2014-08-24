@@ -11,7 +11,7 @@
 #Load dependant packages
 
 
-#Step 1: Create local directories and download and extract data.
+#Create local directories and download and extract data.
 if (!file.exists("sourceData")){
   dir.create("sourceData")
 }
@@ -24,18 +24,25 @@ if (!file.exists(localCacheOfRawDataFile)){
   fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
   download.file(fileUrl, localCacheOfRawDataFile)
 }
-#Read raw data from downloaded file
-subjectTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/subject_test.txt")
-open(subjectTestConn)
-readLines(subjectTestConn, n=10)
-close(subjectTestConn)
-
-yTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/y_test.txt")
-open(yTestConn)
-readLines(yTestConn, n=10)
-close(yTestConn)
-
+#Read raw test data from downloaded file
 xTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/X_test.txt")
-open(xTestConn)
-readLines(xTestConn, n=10)
-close(xTestConn)
+test.RawData <- read.table(xTestConn)
+yTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/y_test.txt")
+test.RawData[,562] <- read.table(yTestConn)
+subjectTestConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/test/subject_test.txt")
+test.RawData[,563] <- read.table(subjectTestConn)
+#Read raw training data from downloaded file
+xTrainConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/train/X_train.txt")
+train.RawData <- read.table(xTestConn)
+yTrainConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/train/y_train.txt")
+train.RawData[,562] <- read.table(yTestConn)
+subjectTrainConn <- unz(localCacheOfRawDataFile, "UCI HAR Dataset/train/subject_train.txt")
+train.RawData[,563] <- read.table(subjectTestConn)
+#Step 1:Merge training and testing data
+rawData <- rbind(test.RawData, train.RawData) 
+
+
+
+
+
+
